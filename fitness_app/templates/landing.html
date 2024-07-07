@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Landing Page</title>
+    <!-- Incluir Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">FitnessApp</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Registrarse</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="jumbotron mt-5">
+        <h1 class="display-4">Bienvenido a FitnessApp</h1>
+        <p class="lead">
+          Tu plataforma para llevar un estilo de vida saludable.
+        </p>
+        <hr class="my-4" />
+        <p>
+          FitnessApp te ayuda a mantener un seguimiento de tus rutinas de
+          ejercicio, llevar una dieta equilibrada y monitorizar tu progreso
+          hacia un mejor estado de salud.
+        </p>
+        <a
+          class="btn btn-primary btn-lg"
+          href="{% url 'register' %}"
+          role="button"
+          >Regístrate</a
+        >
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-md-4">
+          <h2>Seguimiento de Ejercicio</h2>
+          <p>
+            Registra tus rutinas diarias y lleva un control de tus actividades
+            físicas para asegurarte de estar siempre en el camino correcto.
+          </p>
+        </div>
+        <div class="col-md-4">
+          <h2>Planes de Dieta</h2>
+          <p>
+            Accede a planes de dieta personalizados que te ayudarán a alcanzar
+            tus objetivos de nutrición y salud.
+          </p>
+        </div>
+        <div class="col-md-4">
+          <h2>Progreso en Salud</h2>
+          <p>
+            Monitoriza tu progreso con gráficos y estadísticas que te mostrarán
+            cómo vas mejorando día a día.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Incluir Bootstrap JS y dependencias -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
