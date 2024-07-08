@@ -11,6 +11,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Incluir chartjs-adapter-date-fns -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <style>
+      .scrollable-table {
+        max-height: 400px;
+        overflow-y: auto;
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -24,80 +30,80 @@
       </div>
     </nav>
 
-    <div class="container mt-5">
-      <h1 class="display-4">Dashboard</h1>
-      <p class="lead">Bienvenido, {{ user.username }}</p>
-      <div class="row mt-4">
-        <div class="col-md-4">
+    <div class="container-fluid mt-5">
+      <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Añadir Peso</h5>
-              <p class="card-text">
-                Registra tu peso actual y mantén un seguimiento de tu progreso.
-              </p>
-              <a href="{% url 'add_weight' %}" class="btn btn-primary"
-                >Añadir Peso</a
-              >
+              <h5 class="card-title">Dashboard</h5>
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <a href="{% url 'add_weight' %}">Añadir Peso</a>
+                </li>
+                <li class="list-group-item">
+                  <a href="{% url 'create_exercise' %}">Crear Ejercicio</a>
+                </li>
+                <li class="list-group-item">
+                  <a href="{% url 'create_training_session' %}"
+                    >Crear Sesión de Entrenamiento</a
+                  >
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Crear Entrenamiento</h5>
-              <p class="card-text">
-                Crea y personaliza tu rutina de entrenamiento.
-              </p>
-              <a href="#" class="btn btn-primary">Crear Entrenamiento</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Introducir Sesión de Entrenamiento</h5>
-              <p class="card-text">
-                Introduce los detalles de tu sesión de entrenamiento.
-              </p>
-              <a href="#" class="btn btn-primary">Introducir Sesión</a>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="mt-5">
-        <h2>Evolución del Peso</h2>
-        <canvas id="weightChart"></canvas>
-      </div>
-
-      <div class="mt-5">
-        <h2>Historial del Peso</h2>
-        {% if weight_entries %}
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Peso (kg)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for entry in weight_entries %}
-            <tr>
-              <td>{{ entry.date }}</td>
-              <td>{{ entry.weight }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-        <script type="application/json" id="weightData">
-          {
-              "labels": [{% for entry in weight_entries %}"{{ entry.date|date:'Y-m-d' }}"{% if not forloop.last %},{% endif %}{% endfor %}],
-              "data": [{% for entry in weight_entries %}{{ entry.weight }}{% if not forloop.last %},{% endif %}{% endfor %}]
-          }
-        </script>
-        {% else %}
-        <p>No hay registros de peso aún.</p>
-        {% endif %}
+        <!-- Main content -->
+        <div class="col-md-9">
+          <div class="row">
+            <!-- Chart Column -->
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-body">
+                  <h2>Evolución del Peso</h2>
+                  <canvas id="weightChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <!-- Weight Table Column -->
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <h2>Historial del Peso</h2>
+                  <div class="scrollable-table">
+                    {% if weight_entries %}
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Fecha</th>
+                          <th>Peso (kg)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for entry in weight_entries %}
+                        <tr>
+                          <td>{{ entry.date }}</td>
+                          <td>{{ entry.weight }}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                    <script type="application/json" id="weightData">
+                      {
+                          "labels": [{% for entry in weight_entries %}"{{ entry.date|date:'Y-m-d' }}"{% if not forloop.last %},{% endif %}{% endfor %}],
+                          "data": [{% for entry in weight_entries %}{{ entry.weight }}{% if not forloop.last %},{% endif %}{% endfor %}]
+                      }
+                    </script>
+                    {% else %}
+                    <p>No hay registros de peso aún.</p>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -4,7 +4,7 @@ from django.contrib import messages
 from django import forms
 from .models import CustomUser, WeightEntry
 from django.contrib.auth.decorators import login_required
-from .forms import WeightEntryForm
+from .forms import WeightEntryForm, ExerciseForm
 
 import datetime
 
@@ -85,6 +85,25 @@ def dashboard(request):
     weight_entries = WeightEntry.objects.filter(user=request.user).order_by("date")
     print(f"Peso: {weight_entries}")  # Agrega esta línea
     return render(request, "dashboard.html", {"weight_entries": weight_entries})
+
+
+@login_required
+def create_exercise(request):
+    form = ExerciseForm(request.POST, request.FILES)
+    if form.is_valid():
+        exercise = form.save(commit=False)
+        exercise.user = request.user
+        exercise.save()
+        form.save_m2m()  # Save many to many relations
+        return redirect("dashboard")
+    else:
+        form = ExerciseForm()
+    return render(request, "accounts/create_exercise.html", {"form": form})
+
+
+@login_required
+def create_training_session(request):
+    return render(request, "accounts/create_training_session.html")
 
 
 # Create your views here.
